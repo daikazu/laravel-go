@@ -8,7 +8,7 @@
             "email": "daikazu@gmail.com"
         }
     ],
-    "homepage": "https://github.com/daikazu/laravelgo",
+    "homepage": "https://github.com/daikazu/laravel-go",
     "keywords": ["Laravel", "LaravelGo"],
     "require": {
         "illuminate/support": "~7|~8"

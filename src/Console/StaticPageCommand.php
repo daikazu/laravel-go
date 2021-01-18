@@ -44,7 +44,7 @@ class StaticPageCommand extends Command
 
         $viewPath = 'web.sections.static.'.str_replace('/', '.', $url);
 
-        $url = str_replace('/index', '', $url);
+        $url = str_replace('/index', '/', $url);
 
         $stub = (new Filesystem)->get($this->stub);
 

@@ -120,6 +120,7 @@ class InstallCommand extends Command
 
 
         $this->info('Laravel Go scaffolding installed successfully.');
+        $this->comment('Please execute the "composer install" command to install added dependencies.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
     }
 
