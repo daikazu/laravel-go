@@ -70,6 +70,8 @@ class InstallCommand extends Command
         // Views...
         (new Filesystem)->cleanDirectory(resource_path('views'));
         (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/resources/views', base_path('resources/views'));
+
+        (new Filesystem)->ensureDirectoryExists(base_path('app/View/Components'));
         copy(__DIR__.'/../../stubs/app/View/Components/MetaData.php', base_path('app/View/Components/MetaData.php'));
         // Tests...
 
