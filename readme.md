@@ -102,7 +102,7 @@ this will prompt you for a site name and scaffold out the following files.
 Install composer dependencies
 
 ``` bash
-$ composer install
+$ composer update
 ```
 
 Install node dependencies and build your assets
