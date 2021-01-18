@@ -1,12 +1,11 @@
 {
     "name": "daikazu/laravel-go",
     "description": "Get up and go with this highly opinionated package for developing websites.",
-    "license": "license",
+    "license": "MIT",
     "authors": [
         {
             "name": "Mike Wall",
-            "email": "daikazu@gmail.com",
-            "homepage": "mikewall.dev"
+            "email": "daikazu@gmail.com"
         }
     ],
     "homepage": "https://github.com/daikazu/laravelgo",
