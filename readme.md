@@ -95,6 +95,7 @@ this will prompt you for a site name and scaffold out the following files.
 │                   └── home.blade.php
 ├── routes
 │   └── web.php
+├── .gitignore
 ├── tailwind.config.js
 └── webpack.mix.js
 ```
