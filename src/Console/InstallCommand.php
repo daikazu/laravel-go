@@ -101,7 +101,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/resources/css/app.css', resource_path('css/app.css'));
         copy(__DIR__.'/../../stubs/resources/js/app.js', resource_path('js/app.js'));
         copy(__DIR__.'/../../stubs/resources/js/bootstrap.js', resource_path('js/bootstrap.js'));
-        copy(__DIR__.'/../../stubs/.gitignore', resource_path('.gitignore'));
+        copy(__DIR__.'/../../stubs/gitignore', base_path('.gitignore'));
 
         $this->updateComposerScripts();
 
