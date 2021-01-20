@@ -109,6 +109,7 @@ class InstallCommand extends Command
 //        Update Vaiables
 
 
+        $this->replaceInFile(':base_name', $siteName, base_path('webpack.mix.js'));
         $this->replaceInFile(':site_name', $siteName, base_path('config/seotools.php'));
         $this->replaceInFile(':site_name', $siteName, base_path('config/website.php'));
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/layout/footer.blade.php'));
