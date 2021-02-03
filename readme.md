@@ -68,8 +68,6 @@ this will prompt you for a site name and scaffold out the following files.
 │   ├── seotools.php
 │   ├── sitemap.php
 │   └── website.php
-├── new
-│   └── static-page.blade.php
 ├── resources
 │   ├── css
 │   │   └── app.css
