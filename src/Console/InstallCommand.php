@@ -11,14 +11,29 @@ class InstallCommand extends Command
 {
 
 
-    protected $signature = 'go:install';
+    protected $signature = 'go:install {--f|force : Force running install more than once}';
 
     protected $description = 'Install the Laravel Go scaffolding';
+
+    private $hasRun = false;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (file_exists(config_path('website.php'))) {
+            $this->hasRun = true;
+        }
+    }
+
 
     public function handle()
     {
 
-
+        if ($this->hasRun and !$this->option('force')) {
+            $this->warn('Install command has already been run. Use the -f option to force installation.');
+            return null;
+        }
 
         $basename = basename(base_path()); //app folder name
 
@@ -53,7 +68,7 @@ class InstallCommand extends Command
                     "browser-sync-webpack-plugin" => "^2.3.0",
                     "color"                       => "^3.1.3",
                     "cross-env"                   => "^7.0.3",
-                    "laravel-mix"                 => "^6.0.6",
+                    "laravel-mix"                 => "^6.0.11",
                     "lodash"                      => "^4.17.20",
                     "postcss"                     => "^8.2.2",
                     "postcss-import"              => "^14.0.0",
@@ -115,9 +130,6 @@ class InstallCommand extends Command
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/layout/footer.blade.php'));
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/layout/header.blade.php'));
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/sections/static/home.blade.php'));
-
-
-
 
 
         $this->info('Laravel Go scaffolding installed successfully.');
@@ -200,8 +212,8 @@ class InstallCommand extends Command
         foreach ($items as $item) {
             if (array_key_exists("post-autoload-dump", $composer['scripts'])) {
 
-                if(!in_array($item, $composer['scripts']['post-autoload-dump'])){
-                array_push($composer['scripts']['post-autoload-dump'], $item);
+                if (!in_array($item, $composer['scripts']['post-autoload-dump'])) {
+                    array_push($composer['scripts']['post-autoload-dump'], $item);
                 }
             }
         }
