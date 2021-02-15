@@ -4,7 +4,6 @@
 @include('web.layout.head')
 </head>
 <body>
-<div class="min-h-screen bg-gray-100">
 @include('web.layout.header')
 <main>
 @yield('main')
