@@ -16,6 +16,7 @@ yarn-error.log
 /.vagrant
 /.idea
 .npmrc
+auth.json
 
 ## FILES COMPILED ON DEPLOY
 /public/mix-manifest.json
