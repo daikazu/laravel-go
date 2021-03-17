@@ -1,6 +1,9 @@
 const mix = require('laravel-mix');
 
-mix.browserSync(':base_name.test');
+mix.browserSync('localhost');
+
+mix.disableSuccessNotifications();
+
 
 if (mix.inProduction()) {
     mix.version();
@@ -18,13 +21,13 @@ mix.sourceMaps();
 
 mix.postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
-    require('tailwindcss'),
+    require('@tailwindcss/jit'),
     require('autoprefixer'),
 ]);
 
 // mix.sass('resources/scss/app.scss', 'public/css', {}, [
 //     require('postcss-import'),
-//     require('tailwindcss'),
+//     require('@tailwindcss/jit'),
 //     require('autoprefixer')
 // ])
 
