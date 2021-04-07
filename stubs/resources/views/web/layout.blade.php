@@ -5,9 +5,7 @@
 </head>
 <body>
 @include('web.layout.header')
-<main>
 @yield('main')
-</main>
 @include('web.layout.footer')
 @livewireScripts
 {{--<script src="{{ asset( mix('js/manifest.js'))}}"></script>--}}
