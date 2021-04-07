@@ -1,9 +1,7 @@
 @extends('web.layout')
 
-@section('meta')
-title: :page_title
-description: :page_description
-@endsection
+@section('meta_title' , ':page_title')
+@section('meta_description' , ':page_description')
 
 @section('main')
     <div>

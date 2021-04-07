@@ -33,17 +33,17 @@ class MetaData extends Component
      */
     public function render()
     {
-        if ($this->meta->get('title')) {
-            SEOTools::setTitle($this->meta->get('title'));
+        if (app()->view->getSection('meta_title')) {
+            SEOTools::setTitle(app()->view->getSection('meta_title'));
         }
-        if ($this->meta->get('description')) {
-            SEOTools::setDescription($this->meta->get('description'));
+        if (app()->view->getSection('meta_description')) {
+            SEOTools::setDescription(app()->view->getSection('meta_description'));
         }
 
         SEOTools::opengraph()->setUrl(app('url')->full());
 
-        if ($this->meta->get('canonical')) {
-            SEOMeta::setCanonical($this->meta->get('canonical'));
+        if (app()->view->getSection('meta_canonical')) {
+            SEOMeta::setCanonical(app()->view->getSection('meta_canonical'));
         } else {
             SEOTools::setCanonical(app('url')->full());
         }
