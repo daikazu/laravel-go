@@ -1,6 +1,5 @@
 <?php
 
-Route::feeds();
 Route::get('sitemap.xml', function () {
     try {
         return response(file_get_contents(storage_path('app/sitemap.xml')), 200, [

@@ -46,12 +46,10 @@ class InstallCommand extends Command
             return [
                     "artesaos/seotools"               => "^0.20.0",
                     "spatie/schema-org"               => "^3.3",
-                    "symfony/yaml"                    => "^5.2",
                     "illuminatech/url-trailing-slash" => "*",
                     "livewire/livewire"               => "^2.4",
-                    "spatie/laravel-backup"           => "^6.15",
-                    "spatie/laravel-feed"             => "^3.1",
-                    "spatie/laravel-sitemap"          => "^5.9",
+                    "spatie/laravel-backup"           => "^7.3",
+                    "spatie/laravel-sitemap"          => "^6.0",
 
                 ] + $packages;
         });
@@ -60,25 +58,23 @@ class InstallCommand extends Command
         $this->updateNodePackages(function ($packages) {
             return [
                     "@tailwindcss/aspect-ratio"   => "^0.2.0",
-                    "@tailwindcss/forms"          => "^0.2.1",
-                    "@tailwindcss/jit"            => "^0.1.3",
+                    "@tailwindcss/forms"          => "^0.3.2",
                     "@tailwindcss/typography"     => "^0.4.0",
-                    'alpinejs'                    => '^2.8.1',
+                    'alpinejs'                    => '^2.8.2',
                     "autoprefixer"                => "^10.2.5",
                     "axios"                       => "^0.21.1",
                     "browser-sync"                => "^2.26.14",
                     "browser-sync-webpack-plugin" => "^2.3.0",
                     "color"                       => "^3.1.3",
                     "cross-env"                   => "^7.0.3",
-                    "laravel-mix"                 => "^6.0.13",
+                    "laravel-mix"                 => "^6.0.16",
                     "lodash"                      => "^4.17.21",
-                    "postcss"                     => "^8.2.8",
-                    "postcss-import"              => "^14.0.0",
+                    "postcss"                     => "^8.2.9",
+                    "postcss-import"              => "^14.0.1",
                     "resolve-url-loader"          => "^3.1.2",
                     "sass"                        => "^1.32.8",
                     "sass-loader"                 => "^11.0.1",
-                    "tailwindcss"                 => "^2.0.3",
-                    "tailwindcss-filters"         => "^3.0.0",
+                    "tailwindcss"                 => "^2.1.1"
                 ] + $packages;
         });
 

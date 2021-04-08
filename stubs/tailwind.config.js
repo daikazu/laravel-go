@@ -3,9 +3,9 @@ const colors = require('tailwindcss/colors')
 
 const customColors = {};
 
-
 module.exports = {
     purge: {
+        mode: 'jit',
         enabled: (process.env.APP_ENV === 'production'),
         content: [
             './storage/framework/views/*.php',
@@ -103,18 +103,6 @@ module.exports = {
             }),
             //endregion
         },
-        //region Tailwind-filters
-        filter: { // defaults to {}
-            'none': 'none',
-            'grayscale': 'grayscale(1)',
-            'invert': 'invert(1)',
-            'sepia': 'sepia(1)',
-        },
-        backdropFilter: { // defaults to {}
-            'none': 'none',
-            'blur': 'blur(20px)',
-        },
-        //endregion
     },
     variants: {
         extend: {}
@@ -122,6 +110,5 @@ module.exports = {
     plugins: [
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
-        require('tailwindcss-filters'),
     ],
 }

@@ -4,7 +4,6 @@ mix.browserSync('localhost');
 
 mix.disableSuccessNotifications();
 
-
 if (mix.inProduction()) {
     mix.version();
 }
@@ -21,7 +20,7 @@ mix.sourceMaps();
 
 mix.postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
-    require('@tailwindcss/jit'),
+    require('tailwindcss'),
     require('autoprefixer'),
 ]);
 
