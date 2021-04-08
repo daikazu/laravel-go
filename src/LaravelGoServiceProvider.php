@@ -2,7 +2,11 @@
 
 namespace Daikazu\LaravelGo;
 
+
+use Daikazu\LaravelGo\Console\MirrorSiteCommand;
 use Illuminate\Support\ServiceProvider;
+use SebastianBergmann\Environment\Console;
+use Spatie\Crawler\Crawler;
 
 class LaravelGoServiceProvider extends ServiceProvider
 {
@@ -38,6 +42,13 @@ class LaravelGoServiceProvider extends ServiceProvider
         $this->app->singleton('laravelgo', function ($app) {
             return new LaravelGo;
         });
+
+//        $this->app->when(MirrorSiteCommand::class)
+//            ->needs(Crawler::class)
+//            ->give(static fn (): Crawler => Crawler::create(config('laravelgo.guzzle_options')));
+
+
+
     }
 
     /**
@@ -81,6 +92,7 @@ class LaravelGoServiceProvider extends ServiceProvider
         $this->commands([
             Console\InstallCommand::class,
             Console\StaticPageCommand::class,
+//            Console\MirrorSiteCommand::class,
         ]);
     }
 }
