@@ -48,7 +48,7 @@ class InstallCommand extends Command
                     "spatie/schema-org"               => "^3.3",
                     "illuminatech/url-trailing-slash" => "*",
                     "livewire/livewire"               => "^2.4",
-                    "spatie/laravel-backup"           => "^7.3",
+                    "spatie/laravel-backup"           => "^7.4",
                     "spatie/laravel-sitemap"          => "^6.0",
 
                 ] + $packages;
