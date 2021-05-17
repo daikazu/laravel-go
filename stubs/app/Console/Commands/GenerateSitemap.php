@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
+use Spatie\Sitemap\Tags\Url;
 use Spatie\Sitemap\SitemapGenerator;
 
 class GenerateSitemap extends Command
@@ -12,7 +14,7 @@ class GenerateSitemap extends Command
      *
      * @var string
      */
-    protected $signature = 'sitemap:generate';
+    protected $signature = 'sitemap:generate {--I|images : With Images}';
     /**
      * The console command description.
      *
@@ -33,11 +35,20 @@ class GenerateSitemap extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return mixed
      */
-    public function handle()
+    public function handle(): mixed
     {
         SitemapGenerator::create(config('app.url'))
+            ->hasCrawled(
+                function (Url $url) {
+                    if (!$this->option('images')) {
+                        if (Str::contains($url->url, ['.jpg', '.png', '.gif'])) return null;
+                    }
+                    return $url;
+                }
+            )
             ->writeToFile(storage_path('app/sitemap.xml'));
+        return 0;
     }
 }
