@@ -21,6 +21,6 @@ return [
     "creation_year" => "2021",
     "misc"          => [],
     'tracking'      => [
-        'google_analytics_id' => env('GOOGLE_ANALYTICS_ID')
+        'google_analytics_id' => env('GOOGLE_ANALYTICS_TRACKING_ID')
     ]
 ];
