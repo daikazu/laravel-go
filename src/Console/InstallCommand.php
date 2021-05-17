@@ -103,7 +103,6 @@ class InstallCommand extends Command
         // Configs...
         copy(__DIR__.'/../../stubs/config/seotools.php', base_path('config/seotools.php'));
         copy(__DIR__.'/../../stubs/config/backup.php', base_path('config/backup.php'));
-        copy(__DIR__.'/../../stubs/config/feed.php', base_path('config/feed.php'));
         copy(__DIR__.'/../../stubs/config/filesystems.php', base_path('config/filesystems.php'));
         copy(__DIR__.'/../../stubs/config/sitemap.php', base_path('config/sitemap.php'));
         copy(__DIR__.'/../../stubs/config/website.php', base_path('config/website.php'));
