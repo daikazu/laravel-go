@@ -4,8 +4,8 @@ const colors = require('tailwindcss/colors')
 const customColors = {};
 
 module.exports = {
+    mode: 'jit',
     purge: {
-        mode: 'jit',
         enabled: (process.env.APP_ENV === 'production'),
         content: [
             './storage/framework/views/*.php',
