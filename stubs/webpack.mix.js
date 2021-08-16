@@ -20,16 +20,11 @@ mix.sourceMaps();
 
 mix.postCss('resources/css/app.css', 'public/css', [
     require('postcss-import'),
-    require('tailwindcss'),
+    require("tailwindcss"),
     require('autoprefixer'),
 ]);
 
-// mix.sass('resources/scss/app.scss', 'public/css', {}, [
-//     require('postcss-import'),
-//     require('@tailwindcss/jit'),
-//     require('autoprefixer')
-// ])
-
 mix.options({
-    processCssUrls: false
+    processCssUrls: true,
+    autoprefixer: { remove: false }
 });

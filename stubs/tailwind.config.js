@@ -1,17 +1,17 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 const colors = require('tailwindcss/colors')
 
-const customColors = {};
+const customColors = {
+    ...colors,
+};
 
 module.exports = {
     mode: 'jit',
     purge: {
         enabled: (process.env.APP_ENV === 'production'),
         content: [
-            './storage/framework/views/*.php',
             './resources/views/**/*.blade.php',
-            './resources/**/*.js',
-            './resources/**/*.vue',
+            './resources/css/safelist.txt',
         ],
         options: {
             safelist: []
@@ -25,10 +25,14 @@ module.exports = {
             padding: '1rem',
         },
         extend: {
-            // colors: customColors,
+            colors: customColors,
             fontFamily: {
                 'sans': ['Rubik', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: theme => ({
+                // 'hero': "url('/images/hero.png')",
+            }),
+            aspectRatio: {},
             //region Typography (.prose)
             typography: (theme) => ({
                 DEFAULT: {
@@ -110,5 +114,6 @@ module.exports = {
     plugins: [
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
+        require('@tailwindcss/aspect-ratio')
     ],
 }

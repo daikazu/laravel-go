@@ -43,39 +43,12 @@ class InstallCommand extends Command
 
         // Composer packages...
         $this->updateComposerPackages(function ($packages) {
-            return [
-                    "artesaos/seotools"               => "^0.20.0",
-                    "spatie/schema-org"               => "^3.3",
-                    "illuminatech/url-trailing-slash" => "*",
-                    "livewire/livewire"               => "^2.4",
-                    "spatie/laravel-backup"           => "^7.4",
-                    "spatie/laravel-sitemap"          => "^6.0",
-
-                ] + $packages;
+            return config('laravelgo.composer_packages') + $packages;
         });
 
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
-            return [
-                    "@tailwindcss/aspect-ratio"   => "^0.2.0",
-                    "@tailwindcss/forms"          => "^0.3.2",
-                    "@tailwindcss/typography"     => "^0.4.0",
-                    'alpinejs'                    => '^2.8.2',
-                    "autoprefixer"                => "^10.2.5",
-                    "axios"                       => "^0.21.1",
-                    "browser-sync"                => "^2.26.14",
-                    "browser-sync-webpack-plugin" => "^2.3.0",
-                    "color"                       => "^3.1.3",
-                    "cross-env"                   => "^7.0.3",
-                    "laravel-mix"                 => "^6.0.16",
-                    "lodash"                      => "^4.17.21",
-                    "postcss"                     => "^8.2.9",
-                    "postcss-import"              => "^14.0.1",
-                    "resolve-url-loader"          => "^3.1.2",
-                    "sass"                        => "^1.32.8",
-                    "sass-loader"                 => "^11.0.1",
-                    "tailwindcss"                 => "^2.1.1"
-                ] + $packages;
+            return config('laravelgo.npm_packages') + $packages;
         });
 
         // Controllers...
@@ -90,7 +63,9 @@ class InstallCommand extends Command
 
         // Misc..
         (new Filesystem)->ensureDirectoryExists(resource_path('images'));
+        copy(__DIR__.'/../../stubs/misc/empty_gitignore.txt', resource_path('images/.gitignore'));
         (new Filesystem)->ensureDirectoryExists(resource_path('svg'));
+        copy(__DIR__.'/../../stubs/misc/empty_gitignore.txt', resource_path('svg/.gitignore'));
 
         copy(__DIR__.'/../../stubs/app/Console/kernel.php', base_path('app/Console/kernel.php'));
         (new Filesystem)->ensureDirectoryExists(base_path('app/Console/Commands'));
@@ -111,14 +86,15 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__.'/../../stubs/webpack.mix.js', base_path('webpack.mix.js'));
         copy(__DIR__.'/../../stubs/resources/css/app.css', resource_path('css/app.css'));
+        copy(__DIR__.'/../../stubs/resources/css/safelist.txt', resource_path('css/safelist.txt'));
         copy(__DIR__.'/../../stubs/resources/js/app.js', resource_path('js/app.js'));
         copy(__DIR__.'/../../stubs/resources/js/bootstrap.js', resource_path('js/bootstrap.js'));
         copy(__DIR__.'/../../stubs/gitignore', base_path('.gitignore'));
 
         $this->updateComposerScripts();
 
-        // Maybe run some stuff
-//        Update Vaiables
+        // TODO: Maybe run some stuff
+        // TODO: Update Variables?
 
 
         $this->replaceInFile(':base_name', $siteName, base_path('webpack.mix.js'));
