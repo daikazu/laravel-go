@@ -1,25 +1,25 @@
 require('./bootstrap');
+import Alpine from 'alpinejs'
+import persist from '@alpinejs/persist'
+import intersect from '@alpinejs/intersect'
+import trap from '@alpinejs/trap'
+import 'focus-visible'
 
-window.domready = require('domready');
+
+// window.domready = require('domready');
 
 // Disable Body Scroll
-const bodyScrollLock = require('body-scroll-lock');
-window.disableBodyScroll = bodyScrollLock.disableBodyScroll;
-window.enableBodyScroll = bodyScrollLock.enableBodyScroll;
+// const bodyScrollLock = require('body-scroll-lock');
+// window.disableBodyScroll = bodyScrollLock.disableBodyScroll;
+// window.enableBodyScroll = bodyScrollLock.enableBodyScroll;
 
 // Alpinejs
-import Alpine from 'alpinejs'
-window.Alpine = Alpine;
-
-//Alpine Plugins
-import intersect from '@alpinejs/intersect'
+// Call Alpine.
+window.Alpine = Alpine
+Alpine.plugin(persist)
 Alpine.plugin(intersect);
-
-import persist from '@alpinejs/persist'
-Alpine.plugin(persist);
-
-import trap from '@alpinejs/trap'
 Alpine.plugin(trap);
+Alpine.start()
 
 
 function makeScrollToEvent(listenerName = 'app:scroll-to') {

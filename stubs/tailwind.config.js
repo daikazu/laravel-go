@@ -6,10 +6,12 @@ const customColors = {
 };
 
 module.exports = {
+    presets:[],
     mode: 'jit',
     purge: {
         enabled: (process.env.APP_ENV === 'production'),
         content: [
+            './resources/js/**/*.js',
             './resources/views/**/*.blade.php',
             './resources/css/safelist.txt',
         ],
@@ -112,6 +114,7 @@ module.exports = {
         extend: {}
     },
     plugins: [
+        require('tailwindcss-debug-screens'),
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
         require('@tailwindcss/aspect-ratio')
