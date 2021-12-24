@@ -3,7 +3,7 @@
 <head>
 @include('web.layout.head')
 </head>
-<body>
+<body @class(['debug-screens' => (config('app.env') === 'local')])>
 @include('web.layout.header')
 @yield('main')
 @include('web.layout.footer')
