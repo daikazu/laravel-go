@@ -3,19 +3,14 @@ import Alpine from 'alpinejs'
 import persist from '@alpinejs/persist'
 import intersect from '@alpinejs/intersect'
 import trap from '@alpinejs/trap'
+import collapse from '@alpinejs/collapse'
 import 'focus-visible'
 
-
-// window.domready = require('domready');
-
-// Disable Body Scroll
-// const bodyScrollLock = require('body-scroll-lock');
-// window.disableBodyScroll = bodyScrollLock.disableBodyScroll;
-// window.enableBodyScroll = bodyScrollLock.enableBodyScroll;
 
 // Alpinejs
 // Call Alpine.
 window.Alpine = Alpine
+Alpine.plugin(collapse)
 Alpine.plugin(persist)
 Alpine.plugin(intersect);
 Alpine.plugin(trap);

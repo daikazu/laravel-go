@@ -1,6 +1,6 @@
 @extends('web.layout')
 
-@section('meta_title' , 'Homepage')
+@section('page_title' , 'Homepage')
 @section('meta_description' , 'Meta Description')
 
 @section('main')

@@ -23,6 +23,8 @@ then look no further. Get up and GO with this light yet highly opinionated packa
 TALL stack. It helps you set up some view folder organization and a few sensible packages to get you started. Not to
 mention a sweet page build artisan command.
 
+The idea behind this package is to install, use, and then remove 
+
 So what are you waiting for, get GOing!
 
 Feel free to give input and suggestions to our [discussion board](https://github.com/daikazu/laravel-go/discussions).
@@ -40,6 +42,54 @@ $ composer require daikazu/laravel-go --dev
 ## Usage
 
 ### One Time Install
+
+Create a `go-packages.json` file in you project root folder and copy and paste the following starter packages.
+
+Add any additional packages you would like to install in your setup.
+
+```json
+{
+    "composer_packages": {
+        "artesaos/seotools": "^0.20.2",
+        "daikazu/laravel-glider": "^1.0.0",
+        "spatie/schema-org": "^3.8",
+        "illuminatech/url-trailing-slash": "*",
+        "livewire/livewire": "^2.8",
+        "spatie/laravel-google-fonts": "^1.0.0",
+        "spatie/laravel-backup": "^7.7",
+        "spatie/laravel-sitemap": "^6.0"
+    },
+    "npm_packages": {
+        "@alpinejs/collapse": "^3.7.1",
+        "@alpinejs/intersect": "^3.7.1",
+        "@alpinejs/persist": "^3.7.1",
+        "@alpinejs/trap": "^3.7.1",
+        "@tailwindcss/aspect-ratio": "^0.3.0",
+        "@tailwindcss/forms": "^0.3.4",
+        "@tailwindcss/typography": "^0.5.0",
+        "alpinejs": "^3.7.1",
+        "autoprefixer": "^10.3.4",
+        "axios": "^0.21.1",
+        "browser-sync": "^2.27.5",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "cross-env": "^7.0.3",
+        "laravel-mix": "^6.0.39",
+        "postcss": "^8.3.6",
+        "postcss-focus-visible": "^5.0.0",
+        "postcss-import": "^14.0.2",
+        "postcss-nested": "^5.0.6",
+        "tailwindcss": "^3.0.7",
+        "tailwindcss-debug-screens": "^2.1.0"
+    }
+}
+
+```
+
+
+
+
+
+
 
 install the initial scaffolding by running the following `artisan` command.
 
