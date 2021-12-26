@@ -32,7 +32,7 @@ class LaravelGoServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-       $this->mergeConfigFrom(__DIR__.'/../config/laravelgo.php', 'laravelgo');
+//       $this->mergeConfigFrom(__DIR__.'/../config/laravelgo.php', 'laravelgo');
 
         // Register the service the package provides.
         $this->app->singleton('laravelgo', function ($app) {
@@ -58,9 +58,9 @@ class LaravelGoServiceProvider extends ServiceProvider
     protected function bootForConsole(): void
     {
         // Publishing the configuration file.
-       $this->publishes([
-           __DIR__.'/../config/laravelgo.php' => config_path('laravelgo.php'),
-       ], 'laravelgo.config');
+//       $this->publishes([
+//           __DIR__.'/../config/laravelgo.php' => config_path('laravelgo.php'),
+//       ], 'laravelgo.config');
 
         // Publishing the views.
         /*$this->publishes([

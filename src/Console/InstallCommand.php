@@ -37,18 +37,30 @@ class InstallCommand extends Command
 
         $basename = basename(base_path()); //app folder name
 
+
+        try {
+            $configFile =json_decode( file_get_contents(base_path('go-packages.json')));
+
+        } catch (\ErrorException $e) {
+
+            $this->error('No such file or directory. please make sure you have the go-packages.json file in your application root folder.');
+            exit;
+        }
+
+
         $this->writeWelcomeMessage();
 
         $siteName = $this->ask('Site Name');
 
+
         // Composer packages...
-        $this->updateComposerPackages(function ($packages) {
-            return config('laravelgo.composer_packages') + $packages;
+        $this->updateComposerPackages(function ($packages) use($configFile) {
+            return (array)$configFile->composer_packages + $packages;
         });
 
         // NPM Packages...
-        $this->updateNodePackages(function ($packages) {
-            return config('laravelgo.npm_packages') + $packages;
+        $this->updateNodePackages(function ($packages)use($configFile) {
+            return (array)$configFile->npm_dev_packages + $packages;
         });
 
         // Controllers...

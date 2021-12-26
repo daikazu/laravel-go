@@ -26,8 +26,8 @@ class MetaData extends Component
      */
     public function render()
     {
-        if (app()->view->getSection('meta_title')) {
-            SEOTools::setTitle(app()->view->getSection('meta_title'));
+        if (app()->view->getSection('page_title')) {
+            SEOTools::setTitle(app()->view->getSection('page_title'));
         }
         if (app()->view->getSection('meta_description')) {
             SEOTools::setDescription(app()->view->getSection('meta_description'));
@@ -35,6 +35,9 @@ class MetaData extends Component
         if (app()->view->getSection('meta_canonical')) {
             SEOMeta::setCanonical(app()->view->getSection('meta_canonical'));
         }
+
+        // CUSTOM ITEMS WOULD GO HERE
+
         return view('web.layout.head.meta-data');
     }
 }

@@ -22,5 +22,8 @@ return [
     "misc"          => [],
     'tracking'      => [
         'google_analytics_id' => env('GOOGLE_ANALYTICS_TRACKING_ID')
+    ],
+    'seo' =>[
+        'google_site_verification' => env('GOOGLE_SITE_VERIFICATION')
     ]
 ];
