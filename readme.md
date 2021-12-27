@@ -52,34 +52,36 @@ Add any additional packages you would like to install in your setup.
     "composer_packages": {
         "artesaos/seotools": "^0.20.2",
         "daikazu/laravel-glider": "^1.0.0",
-        "spatie/schema-org": "^3.8",
         "illuminatech/url-trailing-slash": "*",
         "livewire/livewire": "^2.8",
         "spatie/laravel-google-fonts": "^1.0.0",
         "spatie/laravel-backup": "^7.7",
-        "spatie/laravel-sitemap": "^6.0"
+        "spatie/laravel-sitemap": "^6.0",
+        "spatie/schema-org": "^3.8"
     },
     "npm_packages": {
         "@alpinejs/collapse": "^3.7.1",
         "@alpinejs/intersect": "^3.7.1",
         "@alpinejs/persist": "^3.7.1",
         "@alpinejs/trap": "^3.7.1",
-        "@tailwindcss/aspect-ratio": "^0.3.0",
-        "@tailwindcss/forms": "^0.3.4",
+        "@tailwindcss/aspect-ratio": "^0.4.0",
+        "@tailwindcss/forms": "^0.4.0",
         "@tailwindcss/typography": "^0.5.0",
         "alpinejs": "^3.7.1",
-        "autoprefixer": "^10.3.4",
-        "axios": "^0.21.1",
-        "browser-sync": "^2.27.5",
+        "autoprefixer": "^10.4.0",
+        "axios": "^0.24.0",
+        "browser-sync": "^2.27.7",
         "browser-sync-webpack-plugin": "^2.3.0",
         "cross-env": "^7.0.3",
+        "focus-visible": "^5.2.0",
         "laravel-mix": "^6.0.39",
-        "postcss": "^8.3.6",
-        "postcss-focus-visible": "^5.0.0",
+        "postcss": "^8.4.5",
+        "postcss-focus-visible": "^6.0.2",
         "postcss-import": "^14.0.2",
         "postcss-nested": "^5.0.6",
+        "resolve-url-loader": "^4.0.0",
         "tailwindcss": "^3.0.7",
-        "tailwindcss-debug-screens": "^2.1.0"
+        "tailwindcss-debug-screens": "^2.2.1"
     }
 }
 

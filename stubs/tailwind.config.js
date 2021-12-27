@@ -6,20 +6,22 @@ const customColors = {
 };
 
 module.exports = {
-    presets: [],
     content: [
-        './resources/js/**/*.js',
         './resources/views/**/*.blade.php',
-        './resources/css/safelist.txt',
+        './storage/framework/views/*.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
     ],
-    safelist: [],
+    darkMode: 'css',
     theme: {
         container: {
             center: true,
             padding: '1rem',
         },
         extend: {
-            colors: customColors,
+            colors:{
+                // ...customColors
+            },
             fontFamily: {
                 'sans': ['Rubik', ...defaultTheme.fontFamily.sans],
             },
@@ -32,9 +34,9 @@ module.exports = {
         extend: {}
     },
     plugins: [
-        require('tailwindcss-debug-screens'),
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio')
+        require('@tailwindcss/aspect-ratio'),
+        require('tailwindcss-debug-screens'),
     ],
 }

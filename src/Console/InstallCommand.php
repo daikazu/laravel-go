@@ -39,7 +39,7 @@ class InstallCommand extends Command
 
 
         try {
-            $configFile =json_decode( file_get_contents(base_path('go-packages.json')));
+            $configFile = json_decode(file_get_contents(base_path('go-packages.json')));
 
         } catch (\ErrorException $e) {
 
@@ -54,13 +54,13 @@ class InstallCommand extends Command
 
 
         // Composer packages...
-        $this->updateComposerPackages(function ($packages) use($configFile) {
-            return (array)$configFile->composer_packages + $packages;
+        $this->updateComposerPackages(function ($packages) use ($configFile) {
+            return (array) $configFile->composer_packages + $packages;
         });
 
         // NPM Packages...
-        $this->updateNodePackages(function ($packages)use($configFile) {
-            return (array)$configFile->npm_dev_packages + $packages;
+        $this->updateNodePackages(function ($packages) use ($configFile) {
+            return (array) $configFile->npm_packages + $packages;
         });
 
         // Controllers...
@@ -74,10 +74,10 @@ class InstallCommand extends Command
         // Tests...
 
         // Misc..
-        (new Filesystem)->ensureDirectoryExists(resource_path('images'));
-        copy(__DIR__.'/../../stubs/misc/empty_gitignore.txt', resource_path('images/.gitignore'));
+        (new Filesystem)->ensureDirectoryExists(resource_path('assets'));
+        copy(__DIR__.'/../../stubs/misc/empty_gitkeep.txt', resource_path('assets/.gitkeep'));
         (new Filesystem)->ensureDirectoryExists(resource_path('svg'));
-        copy(__DIR__.'/../../stubs/misc/empty_gitignore.txt', resource_path('svg/.gitignore'));
+        copy(__DIR__.'/../../stubs/misc/empty_gitkeep.txt', resource_path('svg/.gitkeep'));
 
         copy(__DIR__.'/../../stubs/app/Console/kernel.php', base_path('app/Console/kernel.php'));
         (new Filesystem)->ensureDirectoryExists(base_path('app/Console/Commands'));
@@ -98,7 +98,6 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/tailwind.config.js', base_path('tailwind.config.js'));
         copy(__DIR__.'/../../stubs/webpack.mix.js', base_path('webpack.mix.js'));
         copy(__DIR__.'/../../stubs/resources/css/app.css', resource_path('css/app.css'));
-        copy(__DIR__.'/../../stubs/resources/css/safelist.txt', resource_path('css/safelist.txt'));
         copy(__DIR__.'/../../stubs/resources/js/app.js', resource_path('js/app.js'));
         copy(__DIR__.'/../../stubs/resources/js/bootstrap.js', resource_path('js/bootstrap.js'));
         copy(__DIR__.'/../../stubs/gitignore', base_path('.gitignore'));
