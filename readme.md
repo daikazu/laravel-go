@@ -23,7 +23,7 @@ then look no further. Get up and GO with this light yet highly opinionated packa
 TALL stack. It helps you set up some view folder organization and a few sensible packages to get you started. Not to
 mention a sweet page build artisan command.
 
-The idea behind this package is to install, use, and then remove 
+The idea behind this package is to install, use, and then remove.
 
 So what are you waiting for, get GOing!
 
@@ -86,12 +86,6 @@ Add any additional packages you would like to install in your setup.
 }
 
 ```
-
-
-
-
-
-
 
 install the initial scaffolding by running the following `artisan` command.
 
