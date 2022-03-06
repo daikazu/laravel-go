@@ -5,10 +5,10 @@ mix.sourceMaps();
 
 mix.postCss('resources/css/app.css', 'public/css/app.css', [
     require('postcss-import'),
-    require('tailwindcss'),
     require('postcss-nested'),
+    require('tailwindcss'),
     require('postcss-focus-visible'),
-
+    require('autoprefixer'),
 ])
 
 mix.options({
@@ -30,10 +30,4 @@ mix.override((webpackConfig) => {
         "node_modules",
         // __dirname + "/vendor/spatie/laravel-medialibrary-pro/resources/js",
     ];
-});
-
-
-mix.options({
-    processCssUrls: true,
-    autoprefixer: { remove: false }
 });
