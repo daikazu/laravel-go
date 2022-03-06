@@ -33,7 +33,7 @@ Want to contribute? Take a look at [contributing.md](contributing.md) to see a t
 
 ## Installation
 
-Via Composer
+Via Composer for Laravel v9
 
 ``` bash
 $ composer require daikazu/laravel-go --dev
