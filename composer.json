@@ -11,7 +11,7 @@
     "homepage": "https://github.com/daikazu/laravel-go",
     "keywords": ["Laravel", "Laravel Go"],
     "require": {
-        "illuminate/support": "~8|~9"
+        "illuminate/support": "~9"
     },
     "require-dev": {
         "phpunit/phpunit": "~9.0",
