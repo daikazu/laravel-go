@@ -70,11 +70,11 @@ class InstallCommand extends Command
         (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/resources/views', base_path('resources/views'));
 
         // LANG
-        copy(__DIR__.'/../../stubs/app/View/Components/strings.php', base_path('app/View/Components/MetaData.php'));
+        copy(__DIR__.'/../../stubs/lang/en/strings.php', base_path('lang/en/strings.php'));
 
 
         (new Filesystem)->ensureDirectoryExists(base_path('app/View/Components'));
-        copy(__DIR__.'/../../stubs/lang/en/strings.php', base_path('lang/en/strings.php'));
+        copy(__DIR__.'/../../stubs/app/View/Components/MetaData.php', base_path('app/View/Components/MetaData.php'));
         // Tests...
 
 
