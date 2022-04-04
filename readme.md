@@ -36,7 +36,7 @@ Want to contribute? Take a look at [contributing.md](contributing.md) to see a t
 Via Composer for Laravel v9
 
 ``` bash
-$ composer require daikazu/laravel-go --dev
+composer require daikazu/laravel-go --dev
 ```
 
 ## Usage
@@ -90,7 +90,7 @@ Add any additional packages you would like to install in your setup.
 install the initial scaffolding by running the following `artisan` command.
 
 ``` bash
-$ php artisan go:install
+php artisan go:install
 ```
 
 ***NOTE*** this command should only be run once. A repeated run will overwrite any modified files.
@@ -147,13 +147,13 @@ this will prompt you for a site name and scaffold out the following files.
 Install composer dependencies
 
 ``` bash
-$ composer update
+composer update
 ```
 
 Install node dependencies and build your assets
 
 ``` bash
-$ npm install && npm run dev
+npm install && npm run dev
 ```
 
 Don't forget to change configs and add environment variable as needed. 
@@ -164,7 +164,7 @@ Don't forget to change configs and add environment variable as needed.
 Quickly create a static page using the following command. Creates `blade.php` file and adds entry into your routes files.
 
 ```bash
-$ php artisan go:make-static my-page mycustomname
+php artisan go:make-static my-page mycustomname
 ```
 This will create a `my-page.blade.php` in the `resources/views/web/sections/static/` folder
 
@@ -185,7 +185,7 @@ by appending a `/` or `/index` at the end of your path you tell the command to m
 
 Example:
 ```bash
-$ php artisan go:make-static post/comments/
+php artisan go:make-static post/comments/
 /resources/views/web/sections/static/post/comments.index.blade.php
 ```
 
