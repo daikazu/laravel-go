@@ -22,7 +22,6 @@ class LaravelGoServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
         }
-
     }
 
     /**
@@ -79,6 +78,7 @@ class LaravelGoServiceProvider extends ServiceProvider
 
         // Registering package commands.
         $this->commands([
+            Console\InitCommand::class,
             Console\InstallCommand::class,
             Console\StaticPageCommand::class,
         ]);

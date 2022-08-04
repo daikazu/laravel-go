@@ -1,0 +1,10 @@
+{
+    "composer_packages": {
+        "require": {},
+        "require-dev": {}
+    },
+    "npm_packages": {
+        "dependencies": {},
+        "devDependencies": {}
+    }
+}

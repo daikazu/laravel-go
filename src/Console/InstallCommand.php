@@ -1,17 +1,13 @@
 <?php
 
-
 namespace Daikazu\LaravelGo\Console;
-
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
 class InstallCommand extends Command
 {
-
-
-    protected $signature = 'go:install {--f|force : Force running install more than once}';
+    protected $signature = 'go:install {--f|force : Force running install more than once} {--d|default : Install with default packages}';
 
     protected $description = 'Install the Laravel Go scaffolding';
 
@@ -26,103 +22,75 @@ class InstallCommand extends Command
         }
     }
 
-
     public function handle()
     {
+        if ($this->option('default')) {
+            $this->call('go:init', ['--default' => true]);
+        }
 
-        if ($this->hasRun and !$this->option('force')) {
+        if ($this->hasRun and ! $this->option('force')) {
             $this->warn('Install command has already been run. Use the -f option to force installation.');
+
             return null;
         }
 
-        $basename = basename(base_path()); //app folder name
-
-
         try {
             $configFile = json_decode(file_get_contents(base_path('go-packages.json')));
-
         } catch (\ErrorException $e) {
-
             $this->error('No such file or directory. please make sure you have the go-packages.json file in your application root folder.');
             exit;
         }
-
 
         $this->writeWelcomeMessage();
 
         $siteName = $this->ask('Site Name');
 
-
         // Composer packages...
-        $this->updateComposerPackages(function ($packages) use ($configFile) {
-            return (array) $configFile->composer_packages + $packages;
-        });
+        // require
+        if (collect($configFile->composer_packages)->has('require')) {
+            $this->updateComposerPackages(function ($packages) use ($configFile) {
+                return (array) $configFile->composer_packages->require + $packages;
+            });
+        }
+        // require dev
+        if (collect($configFile->composer_packages)->has('require-dev')) {
+            $this->updateComposerPackages(function ($packages) use ($configFile) {
+                return (array) $configFile->composer_packages->{'require-dev'} + $packages;
+            }, true);
+        }
 
         // NPM Packages...
-        $this->updateNodePackages(function ($packages) use ($configFile) {
-            return (array) $configFile->npm_packages + $packages;
-        });
+        if (collect($configFile->npm_packages)->has('dependencies')) {
+            $this->updateNodePackages(function ($packages) use ($configFile) {
+                return (array) $configFile->npm_packages->dependencies + $packages;
+            });
+        }
 
-        // Controllers...
+        if (collect($configFile->npm_packages)->has('devDependencies')) {
+            $this->updateNodePackages(function ($packages) use ($configFile) {
+                return (array) $configFile->npm_packages->devDependencies + $packages;
+            }, true);
+        }
 
-        // Views...
+        // copy base files..
         (new Filesystem)->cleanDirectory(resource_path('views'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/resources/views', base_path('resources/views'));
+        $this->copyFiles(__DIR__.'/../../stubs/base/', base_path());
 
-        // LANG
-        copy(__DIR__.'/../../stubs/lang/en/strings.php', base_path('lang/en/strings.php'));
-
-
-        (new Filesystem)->ensureDirectoryExists(base_path('app/View/Components'));
-        copy(__DIR__.'/../../stubs/app/View/Components/MetaData.php', base_path('app/View/Components/MetaData.php'));
-        // Tests...
-
-
-
-        // Misc..
+//        // Misc..
         (new Filesystem)->ensureDirectoryExists(resource_path('assets'));
         copy(__DIR__.'/../../stubs/misc/empty_gitkeep.txt', resource_path('assets/.gitkeep'));
         (new Filesystem)->ensureDirectoryExists(resource_path('svg'));
         copy(__DIR__.'/../../stubs/misc/empty_gitkeep.txt', resource_path('svg/.gitkeep'));
 
-        copy(__DIR__.'/../../stubs/app/Console/kernel.php', base_path('app/Console/kernel.php'));
-        (new Filesystem)->ensureDirectoryExists(base_path('app/Console/Commands'));
-        copy(__DIR__.'/../../stubs/app/Console/Commands/GenerateSitemap.php',
-            base_path('app/Console/Commands/GenerateSitemap.php'));
-
-        // Routes...
-        copy(__DIR__.'/../../stubs/routes/web.php', base_path('routes/web.php'));
-
-        // Configs...
-        copy(__DIR__.'/../../stubs/config/seotools.php', base_path('config/seotools.php'));
-        copy(__DIR__.'/../../stubs/config/backup.php', base_path('config/backup.php'));
-        copy(__DIR__.'/../../stubs/config/filesystems.php', base_path('config/filesystems.php'));
-        copy(__DIR__.'/../../stubs/config/sitemap.php', base_path('config/sitemap.php'));
-        copy(__DIR__.'/../../stubs/config/website.php', base_path('config/website.php'));
-
-        // Tailwind / Webpack...
-        copy(__DIR__.'/../../stubs/tailwind.config.js', base_path('tailwind.config.js'));
-        copy(__DIR__.'/../../stubs/webpack.mix.js', base_path('webpack.mix.js'));
-        copy(__DIR__.'/../../stubs/resources/css/app.css', resource_path('css/app.css'));
-        copy(__DIR__.'/../../stubs/resources/js/app.js', resource_path('js/app.js'));
-        copy(__DIR__.'/../../stubs/resources/js/bootstrap.js', resource_path('js/bootstrap.js'));
-        copy(__DIR__.'/../../stubs/gitignore', base_path('.gitignore'));
-
         $this->updateComposerScripts();
 
-        // TODO: Maybe run some stuff
-        // TODO: Update Variables?
-
-
-        $this->replaceInFile(':base_name', $siteName, base_path('webpack.mix.js'));
         $this->replaceInFile(':site_name', $siteName, base_path('config/seotools.php'));
         $this->replaceInFile(':site_name', $siteName, base_path('config/website.php'));
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/layout/footer.blade.php'));
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/layout/header.blade.php'));
         $this->replaceInFile(':site_name', $siteName, resource_path('views/web/sections/static/home.blade.php'));
 
-
-        $this->info('Laravel Go scaffolding installed successfully.');
+        $this->info('<fg=red;options=bold>Laravel Go</> scaffolding installed successfully.');
         $this->comment('Please execute the "composer update" command to install added dependencies.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
     }
@@ -136,7 +104,7 @@ class InstallCommand extends Command
      */
     protected static function updateNodePackages(callable $callback, $dev = true)
     {
-        if (!file_exists(base_path('package.json'))) {
+        if (! file_exists(base_path('package.json'))) {
             return;
         }
 
@@ -166,7 +134,7 @@ class InstallCommand extends Command
      */
     protected static function updateComposerPackages(callable $callback, $dev = false)
     {
-        if (!file_exists(base_path('composer.json'))) {
+        if (! file_exists(base_path('composer.json'))) {
             return;
         }
 
@@ -189,20 +157,19 @@ class InstallCommand extends Command
 
     private function updateComposerScripts()
     {
-        if (!file_exists(base_path('composer.json'))) {
+        if (! file_exists(base_path('composer.json'))) {
             return;
         }
         $items = [
-            "@php artisan vendor:publish --force --tag=livewire:assets --ansi",
-            "@php artisan storage:link"
+            '@php artisan vendor:publish --force --tag=livewire:assets --ansi',
+            '@php artisan storage:link',
         ];
 
         $composer = json_decode(file_get_contents(base_path('composer.json')), true);
 
         foreach ($items as $item) {
-            if (array_key_exists("post-autoload-dump", $composer['scripts'])) {
-
-                if (!in_array($item, $composer['scripts']['post-autoload-dump'])) {
+            if (array_key_exists('post-autoload-dump', $composer['scripts'])) {
+                if (! in_array($item, $composer['scripts']['post-autoload-dump'])) {
                     array_push($composer['scripts']['post-autoload-dump'], $item);
                 }
             }
@@ -212,9 +179,7 @@ class InstallCommand extends Command
             base_path('composer.json'),
             json_encode($composer, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
         );
-
     }
-
 
     /**
      * Delete the "node_modules" directory and remove the associated lock files.
@@ -256,4 +221,22 @@ EOT;
         $this->line("\n".$asciiLogo."\n");
     }
 
+    private function copyFiles($src, $dst)
+    {
+        $dir = opendir($src);
+
+        @mkdir($dst);
+
+        foreach (scandir($src) as $file) {
+            if (($file != '.') && ($file != '..')) {
+                if (is_dir($src.'/'.$file)) {
+                    $this->copyFiles($src.'/'.$file, $dst.'/'.$file);
+                } else {
+                    copy($src.'/'.$file, $dst.'/'.$file);
+                }
+            }
+        }
+
+        closedir($dir);
+    }
 }
