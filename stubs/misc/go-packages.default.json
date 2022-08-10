@@ -19,6 +19,7 @@
             "@alpinejs/focus": "^3.10.3",
             "@alpinejs/intersect": "^3.10.3",
             "@alpinejs/persist": "^3.10.3",
+            "@defstudio/vite-livewire-plugin": "^0.2.4",
             "@prettier/plugin-php": "^0.18.9",
             "@shufo/prettier-plugin-blade": "^1.4.22",
             "@tailwindcss/aspect-ratio": "^0.4.0",

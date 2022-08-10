@@ -64,7 +64,7 @@ THe created file will look as follows:
 ```
 Add any additional packages you would like to install in your setup or copy and paste the following starter packages.
 
-Additionally, you can add the `-d` or the `--default` flags when running the init command to add the following automatically.
+>Additionally, you can add the `-d` or the `--default` flags when running the `go:init` command to add the following automatically.
 
 ```json
 {
@@ -87,6 +87,7 @@ Additionally, you can add the `-d` or the `--default` flags when running the ini
             "@alpinejs/focus": "^3.10.3",
             "@alpinejs/intersect": "^3.10.3",
             "@alpinejs/persist": "^3.10.3",
+            "@defstudio/vite-livewire-plugin": "^0.2.4",
             "@prettier/plugin-php": "^0.18.9",
             "@shufo/prettier-plugin-blade": "^1.4.22",
             "@tailwindcss/aspect-ratio": "^0.4.0",
@@ -114,6 +115,9 @@ install the initial scaffolding by running the following `artisan` command.
 ``` bash
 php artisan go:install
 ```
+
+> Additionally, you can add the `-d` or the `--default` flags the `go:install` command, and it will auto initialize with the default packages
+
 
 ***NOTE*** this command should only be run once. A repeated run will overwrite any modified files.
 
@@ -179,8 +183,10 @@ Install node dependencies and build your assets
 npm install && npm run dev
 ```
 
-Don't forget to change configs and add environment variable as needed. 
+> We recommend using [pnpm](https://pnpm.io) instead of the default `npm`.
 
+
+Don't forget to change configs and add environment variable as needed. 
 
 ### Static Page Creation Tool
 
@@ -261,13 +267,8 @@ Route::view('post/comments/', 'web.sections.static.post.comments.index')->name('
 - [browser-sync](https://github.com/BrowserSync/browser-sync)
 - [color](github.com/Qix-/color)
 - [cross-env]()
-- [laravel-mix](github.com/JeffreyWay/laravel-mix)
 - [lodash](https://lodash.com)
-- [postcss-import]()
 - [postcss]()
-- [resolve-url-loader]()
-- [sass-loader]()
-- [sass]()
 - [tailwindcss-filters](https://github.com/benface/tailwindcss-filters)
 - [tailwindcss](https://tailwindcss.com)
 
