@@ -29,7 +29,7 @@ So what are you waiting for, get GOing!
 
 Feel free to give input and suggestions to our [discussion board](https://github.com/daikazu/laravel-go/discussions).
 
-Want to contribute? Take a look at [contributing.md](contributing.md) to see a to do list.
+Want to contribute? Take a look at [contributing.md](contributing.md) to see a to-do list.
 
 ## Installation
 
@@ -43,45 +43,68 @@ composer require daikazu/laravel-go --dev
 
 ### One Time Install
 
-Create a `go-packages.json` file in you project root folder and copy and paste the following starter packages.
+Create a `go-packages.json` file in you project root folder or use the following artisan command to create it for you.
 
-Add any additional packages you would like to install in your setup.
+``` bash
+php artisan go:init
+```
+
+THe created file will look as follows:
+```json
+{
+    "composer_packages": {
+        "require": {},
+        "require-dev": {}
+    },
+    "npm_packages": {
+        "dependencies": {},
+        "devDependencies": {}
+    }
+}
+```
+Add any additional packages you would like to install in your setup or copy and paste the following starter packages.
+
+>Additionally, you can add the `-d` or the `--default` flags when running the `go:init` command to add the following automatically.
 
 ```json
 {
     "composer_packages": {
-        "artesaos/seotools": "^0.22.0",
-        "daikazu/laravel-glider": "^2.0",
-        "illuminatech/url-trailing-slash": "*",
-        "livewire/livewire": "^2.10",
-        "spatie/laravel-google-fonts": "^1.2",
-        "spatie/laravel-backup": "^8.0",
-        "spatie/laravel-sitemap": "^6.1",
-        "spatie/schema-org": "^3.10"
+        "require": {
+            "artesaos/seotools": "^0.22.1",
+            "daikazu/laravel-glider": "^2.0.1",
+            "illuminatech/url-trailing-slash": "*",
+            "livewire/livewire": "^2.10.6",
+            "spatie/laravel-google-fonts": "^1.2",
+            "spatie/laravel-backup": "^8.0",
+            "spatie/laravel-sitemap": "^6.2",
+            "spatie/schema-org": "^3.11"
+        }
     },
     "npm_packages": {
-        "@alpinejs/collapse": "^3.9.1",
-        "@alpinejs/focus": "^3.9.1",
-        "@alpinejs/intersect": "^3.9.1",
-        "@alpinejs/persist": "^3.9.1",
-        "@tailwindcss/aspect-ratio": "^0.4.0",
-        "@tailwindcss/forms": "^0.5.0",
-        "@tailwindcss/typography": "^0.5.2",
-        "alpinejs": "^3.9.1",
-        "autoprefixer": "^10.4.2",
-        "axios": "^0.26.0",
-        "browser-sync": "^2.27.7",
-        "browser-sync-webpack-plugin": "^2.3.0",
-        "cross-env": "^7.0.3",
-        "focus-visible": "^5.2.0",
-        "laravel-mix": "^6.0.43",
-        "postcss": "^8.4.7",
-        "postcss-focus-visible": "^6.0.4",
-        "postcss-import": "^14.0.2",
-        "postcss-nested": "^5.0.6",
-        "resolve-url-loader": "^5.0.0",
-        "tailwindcss": "^3.0.23",
-        "tailwindcss-debug-screens": "^2.2.1"
+        "dependencies": {},
+        "devDependencies": {
+            "@alpinejs/collapse": "^3.10.3",
+            "@alpinejs/focus": "^3.10.3",
+            "@alpinejs/intersect": "^3.10.3",
+            "@alpinejs/persist": "^3.10.3",
+            "@defstudio/vite-livewire-plugin": "^0.2.4",
+            "@prettier/plugin-php": "^0.18.9",
+            "@shufo/prettier-plugin-blade": "^1.4.22",
+            "@tailwindcss/aspect-ratio": "^0.4.0",
+            "@tailwindcss/forms": "^0.5.2",
+            "@tailwindcss/typography": "^0.5.4",
+            "alpinejs": "^3.10.3",
+            "autoprefixer": "^10.4.8",
+            "axios": "^0.27.2",
+            "laravel-vite-plugin": "^0.5.2",
+            "lodash": "^4.17.21",
+            "postcss": "^8.4.14",
+            "prettier": "^2.7.1",
+            "prettier-plugin-tailwindcss": "^0.1.13",
+            "tailwindcss": "^3.1.7",
+            "tailwindcss-debug-screens": "^2.2.1",
+            "vite": "^3.0.4"
+        }
     }
 }
 
@@ -92,6 +115,9 @@ install the initial scaffolding by running the following `artisan` command.
 ``` bash
 php artisan go:install
 ```
+
+> Additionally, you can add the `-d` or the `--default` flags the `go:install` command, and it will auto initialize with the default packages
+
 
 ***NOTE*** this command should only be run once. A repeated run will overwrite any modified files.
 
@@ -140,8 +166,9 @@ this will prompt you for a site name and scaffold out the following files.
 ├── routes
 │   └── web.php
 ├── .gitignore
+├── .prettierrc
 ├── tailwind.config.js
-└── webpack.mix.js
+└── vite.config.js
 ```
 
 Install composer dependencies
@@ -156,8 +183,10 @@ Install node dependencies and build your assets
 npm install && npm run dev
 ```
 
-Don't forget to change configs and add environment variable as needed. 
+> We recommend using [pnpm](https://pnpm.io) instead of the default `npm`.
 
+
+Don't forget to change configs and add environment variable as needed. 
 
 ### Static Page Creation Tool
 
@@ -238,13 +267,8 @@ Route::view('post/comments/', 'web.sections.static.post.comments.index')->name('
 - [browser-sync](https://github.com/BrowserSync/browser-sync)
 - [color](github.com/Qix-/color)
 - [cross-env]()
-- [laravel-mix](github.com/JeffreyWay/laravel-mix)
 - [lodash](https://lodash.com)
-- [postcss-import]()
 - [postcss]()
-- [resolve-url-loader]()
-- [sass-loader]()
-- [sass]()
 - [tailwindcss-filters](https://github.com/benface/tailwindcss-filters)
 - [tailwindcss](https://tailwindcss.com)
 

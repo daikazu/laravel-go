@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Daikazu\LaravelGo\Console;
-
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -10,23 +8,21 @@ use Illuminate\Support\Str;
 
 class StaticPageCommand extends Command
 {
-
-
     protected $signature = 'go:make-static {url : URL Path} {name? : Route name (optional)} {--title= : Page Title} {--description= : Meta Description}';
 
     protected $description = 'Create a static page';
 
-
     private $stub = __DIR__.'/../../stubs/new/static-page.blade.php';
+
     private $folder = 'views/web/sections/static/';
 
-    private function escapeStings($string){
+    private function escapeStings($string)
+    {
         return str_replace("'", "\'", $string);
     }
 
     public function handle()
     {
-
         $url = str_replace([' '], '-', strtolower($this->argument('url')));
 
         // Add index to end if url ends with a slash
@@ -51,14 +47,14 @@ class StaticPageCommand extends Command
         if ($this->option('title')) {
             $title = $this->option('title');
         } else {
-            $title = Str::title( str_replace( '-', ' ', str_replace('.blade', '', pathinfo($file_name, PATHINFO_FILENAME))));
+            $title = Str::title(str_replace('-', ' ', str_replace('.blade', '', pathinfo($file_name, PATHINFO_FILENAME))));
         }
 
-        $description = ($this->hasOption('description'))  ? $this->option('description') : '';
+        $description = ($this->hasOption('description')) ? $this->option('description') : '';
 
         $stub = str_replace(
             [':page_title', ':page_description'],
-            [ $this->escapeStings($title) , $this->escapeStings($description)],
+            [$this->escapeStings($title), $this->escapeStings($description)],
             $stub
         );
 
@@ -70,11 +66,9 @@ class StaticPageCommand extends Command
         // add line to web.php
         (new Filesystem)->append(base_path('routes/web.php'), $route);
 
-
         $this->info("{$title} page added successfully.");
 //        $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');
     }
-
 
     /**
      * Replace a given string within a given file.
@@ -88,6 +82,4 @@ class StaticPageCommand extends Command
     {
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
-
-
 }
