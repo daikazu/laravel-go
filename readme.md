@@ -167,6 +167,7 @@ this will prompt you for a site name and scaffold out the following files.
 │   └── web.php
 ├── .gitignore
 ├── .prettierrc
+├── postcss.config.js
 ├── tailwind.config.js
 └── vite.config.js
 ```
