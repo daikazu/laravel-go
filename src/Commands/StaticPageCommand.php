@@ -1,6 +1,6 @@
 <?php
 
-namespace Daikazu\LaravelGo\Console;
+namespace Daikazu\LaravelGo\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -12,11 +12,11 @@ class StaticPageCommand extends Command
 
     protected $description = 'Create a static page';
 
-    private $stub = __DIR__.'/../../stubs/new/static-page.blade.php';
+    private string $stub = __DIR__.'/../../stubs/new/static-page.blade.php';
 
-    private $folder = 'views/web/sections/static/';
+    private string $folder = 'views/web/sections/static/';
 
-    private function escapeStings($string)
+    private function escapeStings($string): array|string
     {
         return str_replace("'", "\'", $string);
     }
@@ -44,11 +44,9 @@ class StaticPageCommand extends Command
 
         $stub = (new Filesystem)->get($this->stub);
 
-        if ($this->option('title')) {
-            $title = $this->option('title');
-        } else {
-            $title = Str::title(str_replace('-', ' ', str_replace('.blade', '', pathinfo($file_name, PATHINFO_FILENAME))));
-        }
+        $title = $this->option('title') ? $this->option('title') : Str::title(str_replace('-', ' ',
+            str_replace('.blade', '', pathinfo($file_name, PATHINFO_FILENAME))));
+
 
         $description = ($this->hasOption('description')) ? $this->option('description') : '';
 
@@ -78,8 +76,9 @@ class StaticPageCommand extends Command
      * @param  string  $path
      * @return void
      */
-    protected function replaceInFile($search, $replace, $path)
+    protected function replaceInFile($search, $replace, $path): void
     {
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
+
 }

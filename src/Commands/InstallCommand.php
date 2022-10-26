@@ -1,6 +1,6 @@
 <?php
 
-namespace Daikazu\LaravelGo\Console;
+namespace Daikazu\LaravelGo\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
@@ -11,7 +11,7 @@ class InstallCommand extends Command
 
     protected $description = 'Install the Laravel Go scaffolding';
 
-    private $hasRun = false;
+    private bool $hasRun = false;
 
     public function __construct()
     {
@@ -102,7 +102,7 @@ class InstallCommand extends Command
      * @param  bool  $dev
      * @return void
      */
-    protected static function updateNodePackages(callable $callback, $dev = true)
+    protected static function updateNodePackages(callable $callback, bool $dev = true): void
     {
         if (! file_exists(base_path('package.json'))) {
             return;
@@ -132,7 +132,7 @@ class InstallCommand extends Command
      * @param  bool  $dev
      * @return void
      */
-    protected static function updateComposerPackages(callable $callback, $dev = false)
+    protected static function updateComposerPackages(callable $callback, $dev = false): void
     {
         if (! file_exists(base_path('composer.json'))) {
             return;
@@ -186,7 +186,7 @@ class InstallCommand extends Command
      *
      * @return void
      */
-    protected static function flushNodeModules()
+    protected static function flushNodeModules(): void
     {
         tap(new Filesystem, function ($files) {
             $files->deleteDirectory(base_path('node_modules'));
@@ -203,7 +203,7 @@ class InstallCommand extends Command
      * @param  string  $path
      * @return void
      */
-    protected function replaceInFile($search, $replace, $path)
+    protected function replaceInFile($search, $replace, $path): void
     {
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }

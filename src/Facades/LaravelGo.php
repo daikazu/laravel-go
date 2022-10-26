@@ -4,15 +4,13 @@ namespace Daikazu\LaravelGo\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * @see \Daikazu\LaravelGo\LaravelGo
+ */
 class LaravelGo extends Facade
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor(): string
+    protected static function getFacadeAccessor()
     {
-        return 'laravelgo';
+        return \Daikazu\LaravelGo\LaravelGo::class;
     }
 }

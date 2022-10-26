@@ -1,6 +1,6 @@
 <?php
 
-namespace Daikazu\LaravelGo\Console;
+namespace Daikazu\LaravelGo\Commands;
 
 use Illuminate\Console\Command;
 
@@ -12,8 +12,9 @@ class InitCommand extends Command
 
     private $file = 'go-packages.clean.json';
 
-    public function handle()
+    public function handle(): int
     {
+
         if ($this->option('default')) {
             $this->file = 'go-packages.default.json';
         }
@@ -22,6 +23,7 @@ class InitCommand extends Command
 
         $this->info('the <fg=blue;options=bold>go-packages.json</> has been created.');
 
-        return 0;
+
+        return self::SUCCESS;
     }
 }

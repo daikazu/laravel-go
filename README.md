@@ -2,21 +2,20 @@
     <img src="https://repository-images.githubusercontent.com/330531629/87ef0400-590c-11eb-8bae-9f0713476087" alt="Envault banner" style="width: 100%; max-width: 800px;" />
 </p>
 
-<p align="center">
-    <a href="https://packagist.org/packages/daikazu/laravel-go">
-        <img src="https://img.shields.io/packagist/dt/daikazu/laravel-go?style=flat-square" alt="Total Downloads">
-    </a>
-    <a href="https://packagist.org/packages/daikazu/laravel-go">
-        <img src="https://img.shields.io/packagist/v/daikazu/laravel-go?style=flat-square" alt="Latest Stable Version">
-    </a>
-    <a href="https://packagist.org/packages/daikazu/laravel-go">
-        <img src="https://img.shields.io/packagist/l/daikazu/laravel-go?style=flat-square" alt="License">
-    </a>
-</p>
+
+
+
+
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/daikazu/laravel-go.svg?style=flat-square)](https://packagist.org/packages/daikazu/laravel-go)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/daikazu/laravel-go/run-tests?label=tests)](https://github.com/daikazu/laravel-go/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/daikazu/laravel-go/Fix%20PHP%20code%20style%20issues?label=code%20style)](https://github.com/daikazu/laravel-go/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/daikazu/laravel-go.svg?style=flat-square)](https://packagist.org/packages/daikazu/laravel-go)
+
+
 
 # Laravel Go =>
 
-## Introduction
+### Introduction
 
 If you are like me and find yourself repeating the same steps everytime when starting to build a new site with Laravel,
 then look no further. Get up and GO with this light yet highly opinionated package for developing websites using the
@@ -29,17 +28,17 @@ So what are you waiting for, get GOing!
 
 Feel free to give input and suggestions to our [discussion board](https://github.com/daikazu/laravel-go/discussions).
 
-Want to contribute? Take a look at [contributing.md](contributing.md) to see a to-do list.
 
 ## Installation
 
-Via Composer for Laravel v9
+You can install the package via composer:
 
-``` bash
+```bash
 composer require daikazu/laravel-go --dev
 ```
 
 ## Usage
+
 
 ### One Time Install
 
@@ -187,7 +186,7 @@ npm install && npm run dev
 > We recommend using [pnpm](https://pnpm.io) instead of the default `npm`.
 
 
-Don't forget to change configs and add environment variable as needed. 
+Don't forget to change configs and add environment variable as needed.
 
 ### Static Page Creation Tool
 
@@ -273,43 +272,30 @@ Route::view('post/comments/', 'web.sections.static.post.comments.index')->name('
 - [tailwindcss-filters](https://github.com/benface/tailwindcss-filters)
 - [tailwindcss](https://tailwindcss.com)
 
-## Change log
 
-Please see the [changelog](changelog.md) for more information on what has changed recently.
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
-Please see [contributing.md](contributing.md) for details and a todolist.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Security
+## Security Vulnerabilities
 
-If you discover any security related issues, please email author email instead of using the issue tracker.
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
 - [Mike Wall](https://github.com/daikazu)
-- [All Contributors][link-contributors]
+- [All Contributors](../../contributors)
 
 ## License
 
-Laravel Go is open-sourced software licensed under the [MIT license](LICENSE.md).
-
-[ico-version]: https://img.shields.io/packagist/v/daikazu/laravel-go.svg?style=flat-square
-
-[ico-downloads]: https://img.shields.io/packagist/dt/daikazu/laravel-go.svg?style=flat-square
-
-[ico-travis]: https://img.shields.io/travis/daikazu/laravel-go/master.svg?style=flat-square
-
-[ico-styleci]: https://styleci.io/repos/12345678/shield
-
-[link-packagist]: https://packagist.org/packages/daikazu/laravel-go
-
-[link-downloads]: https://packagist.org/packages/daikazu/laravel-go
-
-[link-travis]: https://travis-ci.org/daikazu/laravel-go
-
-[link-styleci]: https://styleci.io/repos/12345678
-
-[link-author]: https://github.com/daikazu
-
-[link-contributors]: ../../contributors
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
