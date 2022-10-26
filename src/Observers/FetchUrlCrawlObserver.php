@@ -9,11 +9,12 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Spatie\Crawler\CrawlObservers\CrawlObserver;
 
-
 class FetchUrlCrawlObserver extends CrawlObserver
 {
     private $content;
+
     private Collection $urls;
+
     private array $filter;
 
     public function __construct($filter)
@@ -31,8 +32,6 @@ class FetchUrlCrawlObserver extends CrawlObserver
     public function willCrawl(UriInterface $url): void
     {
 //        Log::info('willCrawl',['url'=>$url]);
-
-
     }
 
     /**
@@ -47,11 +46,9 @@ class FetchUrlCrawlObserver extends CrawlObserver
         ResponseInterface $response,
         ?UriInterface $foundOnUrl = null
     ): void {
-
         if ($response->getStatusCode() == 200) {
             $this->urls->push($url->getPath());
         }
-
     }
 
     /**
@@ -72,17 +69,13 @@ class FetchUrlCrawlObserver extends CrawlObserver
     /**
      * Called when the crawl has ended.
      */
-    public function finishedCrawling() : void
+    public function finishedCrawling(): void
     {
-        Log::info("finishedCrawling");
+        Log::info('finishedCrawling');
         $test = $this->urls->filter(function ($url) {
-            return (!str($url)->startsWith($this->filter) and $url !== '');
+            return ! str($url)->startsWith($this->filter) and $url !== '';
         });
 
-       ray( $test->sort()->flatten());
-
-
+        ray($test->sort()->flatten());
     }
-
-
 }

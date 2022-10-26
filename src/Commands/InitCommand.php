@@ -14,7 +14,6 @@ class InitCommand extends Command
 
     public function handle(): int
     {
-
         if ($this->option('default')) {
             $this->file = 'go-packages.default.json';
         }
@@ -22,7 +21,6 @@ class InitCommand extends Command
         copy(__DIR__.'/../../stubs/misc/'.$this->file, base_path('go-packages.json'));
 
         $this->info('the <fg=blue;options=bold>go-packages.json</> has been created.');
-
 
         return self::SUCCESS;
     }

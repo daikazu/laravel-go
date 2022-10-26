@@ -3,11 +3,11 @@
 namespace Daikazu\LaravelGo;
 
 use Daikazu\LaravelGo\Commands\FetchUrls;
+use Daikazu\LaravelGo\Commands\InitCommand;
 use Daikazu\LaravelGo\Commands\InstallCommand;
 use Daikazu\LaravelGo\Commands\StaticPageCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Daikazu\LaravelGo\Commands\InitCommand;
 
 class LaravelGoServiceProvider extends PackageServiceProvider
 {

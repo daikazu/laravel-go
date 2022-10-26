@@ -46,10 +46,9 @@ class FetchUrls extends Command
 
         $this->info("Collecting URLs for $url");
 
-
         Crawler::create([
             RequestOptions::ALLOW_REDIRECTS => true, RequestOptions::TIMEOUT => 30,
-            RequestOptions::CONNECT_TIMEOUT => 10, RequestOptions::READ_TIMEOUT => 10
+            RequestOptions::CONNECT_TIMEOUT => 10, RequestOptions::READ_TIMEOUT => 10,
         ])
             ->acceptNofollowLinks()
             ->ignoreRobots()
@@ -61,7 +60,6 @@ class FetchUrls extends Command
             // ->setConcurrency(1) // all urls will be crawled one by one
             ->setDelayBetweenRequests(100)
             ->startCrawling($url);
-
 
         $this->info("URL Collecting for $url is completed (Spiders taking over!)");
 

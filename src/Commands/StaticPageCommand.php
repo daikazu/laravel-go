@@ -47,7 +47,6 @@ class StaticPageCommand extends Command
         $title = $this->option('title') ? $this->option('title') : Str::title(str_replace('-', ' ',
             str_replace('.blade', '', pathinfo($file_name, PATHINFO_FILENAME))));
 
-
         $description = ($this->hasOption('description')) ? $this->option('description') : '';
 
         $stub = str_replace(
@@ -80,5 +79,4 @@ class StaticPageCommand extends Command
     {
         file_put_contents($path, str_replace($search, $replace, file_get_contents($path)));
     }
-
 }

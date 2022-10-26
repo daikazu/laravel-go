@@ -2,9 +2,9 @@
 
 namespace Daikazu\LaravelGo\Tests;
 
+use Daikazu\LaravelGo\LaravelGoServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Daikazu\LaravelGo\LaravelGoServiceProvider;
 
 class TestCase extends Orchestra
 {
