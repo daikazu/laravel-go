@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Spatie\Crawler\Crawler;
 use Spatie\Crawler\CrawlProfiles\CrawlInternalUrls;
 
-class FetchUrls extends Command
+class DuplicateWebsiteCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -38,6 +38,12 @@ class FetchUrls extends Command
 
         $filter = explode(',', $this->option('filter'));
 
+        array_push($filter, '/cdn-cgi/');
+
+        array_walk($filter, function (&$value) use ($url) {
+            $value = $url.$value;
+        });
+
         $crawlLimit = 1000;
 
         if ($this->option('depth')) {
@@ -53,7 +59,7 @@ class FetchUrls extends Command
             ->acceptNofollowLinks()
             ->ignoreRobots()
             ->setParseableMimeTypes(['text/html', 'text/plain'])
-            ->setCrawlObserver(new FetchUrlCrawlObserver($filter))
+            ->setCrawlObserver(new FetchUrlCrawlObserver(rootURL: $url, filter: $filter))
             ->setCrawlProfile(new CrawlInternalUrls($url))
             ->setMaximumResponseSize(1024 * 1024 * 2) // 2 MB maximum
             ->setTotalCrawlLimit($crawlLimit) // limit defines the maximal count of URLs to crawl
@@ -62,8 +68,6 @@ class FetchUrls extends Command
             ->startCrawling($url);
 
         $this->info("URL Collecting for $url is completed (Spiders taking over!)");
-
-        // TODO: Initialize the Spider
 
         return Command::SUCCESS;
     }

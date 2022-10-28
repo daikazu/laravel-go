@@ -2,7 +2,7 @@
 
 namespace Daikazu\LaravelGo;
 
-use Daikazu\LaravelGo\Commands\FetchUrls;
+use Daikazu\LaravelGo\Commands\DuplicateWebsiteCommand;
 use Daikazu\LaravelGo\Commands\InitCommand;
 use Daikazu\LaravelGo\Commands\InstallCommand;
 use Daikazu\LaravelGo\Commands\StaticPageCommand;
@@ -27,7 +27,7 @@ class LaravelGoServiceProvider extends PackageServiceProvider
                 InitCommand::class,
                 InstallCommand::class,
                 StaticPageCommand::class,
-                FetchUrls::class,
+                DuplicateWebsiteCommand::class,
             ]);
     }
 }

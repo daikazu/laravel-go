@@ -2,6 +2,7 @@
 
 namespace Daikazu\LaravelGo\Observers;
 
+use Daikazu\LaravelGo\Jobs\DuplicateWebsiteJob;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
@@ -15,13 +16,10 @@ class FetchUrlCrawlObserver extends CrawlObserver
 
     private Collection $urls;
 
-    private array $filter;
-
-    public function __construct($filter)
+    public function __construct(private string $rootURL, private array $filter)
     {
         $this->content = null;
         $this->urls = collect();
-        $this->filter = $filter;
     }
 
     /**
@@ -47,7 +45,7 @@ class FetchUrlCrawlObserver extends CrawlObserver
         ?UriInterface $foundOnUrl = null
     ): void {
         if ($response->getStatusCode() == 200) {
-            $this->urls->push($url->getPath());
+            $this->urls->push($this->rootURL.$url->getPath());
         }
     }
 
@@ -72,10 +70,9 @@ class FetchUrlCrawlObserver extends CrawlObserver
     public function finishedCrawling(): void
     {
         Log::info('finishedCrawling');
-        $test = $this->urls->filter(function ($url) {
-            return ! str($url)->startsWith($this->filter) and $url !== '';
+        $filteredUrls = $this->urls->filter(function ($url) {
+            return !str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
         });
-
-        ray($test->sort()->flatten());
+        DuplicateWebsiteJob::dispatch($filteredUrls->sort()->flatten());
     }
 }
