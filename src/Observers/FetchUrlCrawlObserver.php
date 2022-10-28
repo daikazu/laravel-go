@@ -71,7 +71,7 @@ class FetchUrlCrawlObserver extends CrawlObserver
     {
         Log::info('finishedCrawling');
         $filteredUrls = $this->urls->filter(function ($url) {
-            return !str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
+            return ! str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
         });
         DuplicateWebsiteJob::dispatch($filteredUrls->sort()->flatten());
     }
