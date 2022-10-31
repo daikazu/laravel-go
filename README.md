@@ -224,6 +224,18 @@ Created file: `/resources/views/web/sections/static/post/comments.index.blade.ph
 Route::view('post/comments/', 'web.sections.static.post.comments.index')->name('post.comments.index');
 ```
 
+### Website Duplication Tool
+
+Crawl and Duplicate an existing website to the Laravel-Go way of things. Currently, a work in progress but is mostly feature complete.
+this will crawl and scrape the website creating routes, views, and assets. 
+use the optional `--fileter=` flag to filter out any unwanted URIs.
+
+```bash
+php artisan go:duplicate https://example.test --filter=/blog,/image
+````
+This will copy the main header and footer from the website and create a `header.blade.php` and `footer.blade.php` file in the `resources/views/web/layout/` folder 
+and remove the `<header>` and `<footer>` from any page that has them. All other page content will be copied into its own `blade.php` file in the `resources/views/web/sections/static/` folder and placed between the `main` section directives.
+
 ## Default Packages
 
 ### Composer
