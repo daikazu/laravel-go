@@ -5,7 +5,6 @@ namespace Daikazu\LaravelGo\Jobs;
 use DOMDocument;
 use DOMElement;
 use DOMNode;
-use DOMXPath;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
