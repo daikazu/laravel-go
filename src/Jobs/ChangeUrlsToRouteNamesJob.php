@@ -13,18 +13,14 @@ use Illuminate\Support\Facades\File;
 
 class ChangeUrlsToRouteNamesJob implements ShouldQueue
 {
-
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
 
     public function __construct(public string $rootURL)
     {
-
     }
 
     public function handle()
     {
-
         //TODO WIP
 
         $routeList = collect(\Route::getRoutes()->getRoutes())->pluck('uri', 'action.as');
@@ -33,7 +29,6 @@ class ChangeUrlsToRouteNamesJob implements ShouldQueue
 
         //loop through files
         $files->each(function ($file) use ($routeList) {
-
             $fileContent = File::get($file->getPathname());
 
             $doc = new DOMDocument();
@@ -44,29 +39,25 @@ class ChangeUrlsToRouteNamesJob implements ShouldQueue
             $anchors = $doc->getElementsByTagName('a');
 
             foreach ($anchors as $a) {
-
                 $originalUrl = $a->getAttribute('href');
 
                 $removedUrl = str_replace($this->rootURL, '', $originalUrl);
 
                 $searchUrl = str($removedUrl)->after('/')->beforeLast('?')->beforeLast('#')->toString();
 
-                $matched =  $routeList->search( $searchUrl);
+                $matched = $routeList->search($searchUrl);
 
                 $a->setAttribute('href', "{{ route('{$matched}')}}");
             }
 
             //save file
             File::put($file->getPathname(), $this->DOMinnerHTML($doc));
-
         });
-
-
     }
 
     private function DOMinnerHTML(DOMNode $element): string
     {
-        $innerHTML = "";
+        $innerHTML = '';
         $children = $element->childNodes;
 
         foreach ($children as $child) {
@@ -75,6 +66,4 @@ class ChangeUrlsToRouteNamesJob implements ShouldQueue
 
         return urldecode($innerHTML);
     }
-
-
 }

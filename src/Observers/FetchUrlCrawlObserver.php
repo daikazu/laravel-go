@@ -74,7 +74,8 @@ class FetchUrlCrawlObserver extends CrawlObserver
         $filteredUrls = $this->urls->filter(function ($url) {
             // remove query string
             $url = preg_replace('/\?.*/', '', $url);
-            return !str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
+
+            return ! str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
         });
 
         DuplicateWebsiteJob::dispatch($filteredUrls->unique()->sort()->flatten());
