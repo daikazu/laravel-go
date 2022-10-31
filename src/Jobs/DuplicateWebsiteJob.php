@@ -88,34 +88,49 @@ class DuplicateWebsiteJob implements ShouldQueue
 
             $body = $doc->getElementsByTagName('body')->item(0);
             $this->removeHeaderFooter($body);
-//            $this->downloadImagesFromNode($body);
+            $this->downloadImagesFromNode($body);
 
             // Generate Routes and File
-            $routeUrl = (string) str($url)->replace($this->rootURL, '')->lower();
+            $routeUrl = str($url)->replace($this->rootURL, '')->lower();
+
+            $routeName = str($routeUrl)->endsWith('/') ? str($routeUrl)->replaceLast('/',
+                '.index')->toString() : $routeUrl;
+            $routeName = str($routeName)->startsWith('/') ? str($routeName)->replaceFirst('/',
+                '')->toString() : $routeName;
+            $routeName = str($routeName)->startsWith('.') ? str($routeName)->replaceFirst('.',
+                '')->toString() : $routeName;
+
+            if ($routeName === 'index') {
+                $routeName = 'home';
+            }
+
+            $fileName = str($routeName)->append('.blade.php')->toString();
+
+            if (str($fileName)->endsWith('.index.blade.php')) {
+                $fileName = str($fileName)->replaceLast('.index.blade.php', '/index.blade.php')->toString();
+            }
+
+            $viewPath = 'web.sections.static.'.$routeName;
 
 
-            $routeName = (string) str($routeUrl)->endsWith('/') ? str($routeUrl)->replaceLast('/', '.index') : $routeUrl;
-            $routeName = (string) str($routeName)->startsWith('/') ? str($routeName)->replaceFirst('/', '') : $routeName;
-            $routeName = (string) str($routeName)->startsWith('.') ? str($routeName)->replaceFirst('.', '') : $routeName;
+            // Create blade files from stub
+            $stub = File::get($this->stub);
+            $stub = str_replace(
+                [':page_title', ':page_description', ':page_content'],
+                [addslashes($title), addslashes($metDescription), $this->DOMinnerHTML($body)],
+                $stub
+            );
 
-            $fileName = (string) str($routeName)->append('.blade.php');
+            File::ensureDirectoryExists(resource_path(pathinfo($this->folder.$fileName, PATHINFO_DIRNAME)));
+            File::put(resource_path($this->folder.$fileName), $stub);
 
-            $routeName = (string) str($routeName)->replace('/', '.');
-            $routeName = (string)($routeName === 'index') ? 'home' : $routeName;
+            $route = "Route::view('{$routeUrl}', '{$viewPath}')->name('{$routeName}');".PHP_EOL;
 
-
-
-            ray($routeUrl, $routeName, $fileName);
-
-
-
-
-
-
-
-
-
+            File::append(base_path('routes/web.php'), $route);
         }
+
+        // TODO: WIP
+//        ChangeUrlsToRouteNamesJob::dispatch($this->rootURL);
 
     }
 
@@ -138,12 +153,18 @@ class DuplicateWebsiteJob implements ShouldQueue
             $imageURL = $this->rootURL.$imageURL;
         }
 
+        $origPath = str($imageURL)->replace($name, '')->remove($this->rootURL, '');
+        $origPath = str($origPath)->startsWith('/images') ? str($origPath)->replaceFirst('/images', '') : $origPath;
+        $origPath = str($origPath)->startsWith('/img') ? str($origPath)->replaceFirst('/img', '') : $origPath;
+        $origPath = $origPath->toString();
+
         try {
             $contents = file_get_contents($imageURL);
-            $save_path = resource_path('assets/'.$name);
+            $save_path = resource_path('assets'.$origPath.$name);
+            File::ensureDirectoryExists(pathinfo($save_path, PATHINFO_DIRNAME));
             file_put_contents($save_path, $contents);
 
-            return "{{ asset('images/{$name}') }} ";  // Make this a blade string
+            return "{{ asset('images{$origPath}{$name}') }} ";  // Make this a blade string
 
         } catch (Exception) {
             return $imageURL;
@@ -152,7 +173,7 @@ class DuplicateWebsiteJob implements ShouldQueue
     }
 
 
-    private function DOMinnerHTML(DOMNode $element)
+    private function DOMinnerHTML(DOMNode $element): string
     {
         $innerHTML = "";
         $children = $element->childNodes;

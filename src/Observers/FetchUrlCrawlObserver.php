@@ -70,9 +70,13 @@ class FetchUrlCrawlObserver extends CrawlObserver
     public function finishedCrawling(): void
     {
         Log::info('finishedCrawling');
+
         $filteredUrls = $this->urls->filter(function ($url) {
+            // remove query string
+            $url = preg_replace('/\?.*/', '', $url);
             return !str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
         });
-        DuplicateWebsiteJob::dispatch($filteredUrls->sort()->flatten());
+
+        DuplicateWebsiteJob::dispatch($filteredUrls->unique()->sort()->flatten());
     }
 }
