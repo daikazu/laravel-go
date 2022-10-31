@@ -12,13 +12,10 @@ use Spatie\Crawler\CrawlObservers\CrawlObserver;
 
 class FetchUrlCrawlObserver extends CrawlObserver
 {
-    private $content;
-
     private Collection $urls;
 
     public function __construct(private string $rootURL, private array $filter)
     {
-        $this->content = null;
         $this->urls = collect();
     }
 
@@ -75,7 +72,7 @@ class FetchUrlCrawlObserver extends CrawlObserver
             // remove query string
             $url = preg_replace('/\?.*/', '', $url);
 
-            return ! str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
+            return !str($url)->startsWith($this->filter) and $url !== '' and $url !== $this->rootURL;
         });
 
         DuplicateWebsiteJob::dispatch($filteredUrls->unique()->sort()->flatten());

@@ -3,7 +3,9 @@
 namespace Daikazu\LaravelGo\Jobs;
 
 use DOMDocument;
+use DOMElement;
 use DOMNode;
+use DOMXPath;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -77,8 +79,9 @@ class DuplicateWebsiteJob implements ShouldQueue
 
             // get the meta description
             $xpath = new \DOMXPath($doc);
-            $metDescription = $xpath->query('//meta[@name="description"]')->item(0)->getAttribute('content');
-
+            /** @var DOMElement $metDescription */
+            $metDescription = $xpath->query('//meta[@name="description"]')->item(0);
+            $metDescription = $metDescription->getAttribute('content');
             $body = $doc->getElementsByTagName('body')->item(0);
             $this->removeHeaderFooter($body);
             $this->downloadImagesFromNode($body);
