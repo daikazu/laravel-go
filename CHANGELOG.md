@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-go` will be documented in this file.
 
+## v4.1.1 - 2022-11-21
+
+**Full Changelog**: https://github.com/daikazu/laravel-go/compare/v4.1.0...v4.1.1
+
 ## v4.1.0 - 2022-10-31
 
 Feature: Site Duplication
