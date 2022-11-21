@@ -14,7 +14,6 @@
             "barryvdh/laravel-debugbar": "^3.5",
             "beyondcode/laravel-query-detector": "^1.6",
             "barryvdh/laravel-ide-helper": "^2.9",
-            "fzaninotto/faker": "^1.9.1",
             "nunomaduro/collision": "^6.0",
             "nunomaduro/larastan": "^2.0.1",
             "pestphp/pest": "^1.21",
